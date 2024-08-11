@@ -192,6 +192,7 @@ public:
 
         if (symbol == nullptr)
             throw symbol_error("Could not get symbol \"" + std::string(symbol_name) + "\"\n" + get_error_description());
+        std::cout << "Find symbol address: " << symbol << std::endl;
         return symbol;
     }
 
