@@ -192,7 +192,7 @@ public:
 
         if (symbol == nullptr)
             throw symbol_error("Could not get symbol \"" + std::string(symbol_name) + "\"\n" + get_error_description());
-        std::cout << "Find symbol address: " << symbol << std::endl;
+        std::cout << "Find  address: " << symbol << std::endl;
         return symbol;
     }
 
@@ -204,8 +204,12 @@ public:
         if (!m_handle)
             throw std::logic_error("The dynamic library handle is null");
 
-        if (offset < 0)
+        if (offset < 0){
             throw std::invalid_argument("Offset cannot be negative");
+        }
+        else{
+            std::cout << "offset is : " << offset << std::endl; 
+        }
         Dl_info dl_info;
         void* base_address = dl_info.dli_fbase; // 返回基地址
         std::cout << "Calculated base address: " << base_address << std::endl;
