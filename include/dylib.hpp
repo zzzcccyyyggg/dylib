@@ -199,7 +199,7 @@ public:
         return get_symbol(symbol_name.c_str());
     }
 
-    dylib::native_symbol_type dylib::get_symbol_by_offset(std::ptrdiff_t offset) const {
+    native_symbol_type get_symbol_by_offset(std::ptrdiff_t offset) const {
         if (!m_handle)
             throw std::logic_error("The dynamic library handle is null");
 
