@@ -17,21 +17,21 @@ set(LIB_NAME "dylib")
 set(CMAKE_EXPORT_NAME "${LIB_NAME}")
 set(PKG_CONFIG_NAME "${LIB_NAME}")
 
-cpack_add_component(dev
+cpack_add_component(zzzcccdev
 	DISPLAY_NAME "${LIB_NAME} header"
 	DESCRIPTION "The header needed for using ${LIB_NAME} in own software"
 )
 
 install(FILES "${CMAKE_CURRENT_SOURCE_DIR}/include/${LIB_NAME}.hpp"
 	TYPE INCLUDE
-	COMPONENT "dev"
+	COMPONENT "zzzcccdev"
 )
 
 set(PKG_CONFIG_FILE_NAME "${CMAKE_CURRENT_BINARY_DIR}/${PKG_CONFIG_NAME}.pc")
 configure_file("${PackagingTemplatesDir}/pkgconfig.pc.in" "${PKG_CONFIG_FILE_NAME}" @ONLY)
 install(FILES "${PKG_CONFIG_FILE_NAME}"
 	DESTINATION "${CMAKE_INSTALL_LIBDIR}/pkgconfig"
-	COMPONENT "dev"
+	COMPONENT "zzzcccdev"
 )
 
 set(CMAKE_CONFIG_FILE_BASENAME "${CMAKE_EXPORT_NAME}Config.cmake")
@@ -50,7 +50,7 @@ write_basic_package_version_file(
 
 install(FILES "${CMAKE_CONFIG_FILE_NAME}" "${CMAKE_CONFIG_VERSION_FILE_NAME}"
 	DESTINATION "${CMAKE_INSTALL_LIBDIR}/cmake/${CMAKE_EXPORT_NAME}"
-	COMPONENT "dev"
+	COMPONENT "zzzcccdev"
 )
 
 set("CPACK_DEBIAN_DEV_PACKAGE_NAME" "lib${LIB_NAME}-dev")
@@ -60,9 +60,9 @@ set("CPACK_DEBIAN_DEV_PACKAGE_SUGGESTS" "cmake, pkg-config, pkg-conf")
 set("CPACK_RPM_DEV_PACKAGE_NAME" "lib${LIB_NAME}-devel")
 set("CPACK_RPM_DEV_PACKAGE_SUGGESTS" "${CPACK_DEBIAN_DEV_PACKAGE_SUGGESTS}")
 
-set(CPACK_COMPONENTS_ALL "dev")
+set(CPACK_COMPONENTS_ALL "zzzcccdev")
 
-set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/martin-olivier/dylib")
+set(CPACK_PACKAGE_HOMEPAGE_URL "https://github.com/zzzcccyyyggg/dylib")
 set(CPACK_PACKAGE_MAINTAINER "${CPACK_PACKAGE_VENDOR}")
 set(CPACK_DEBIAN_PACKAGE_MAINTAINER "${CPACK_PACKAGE_MAINTAINER}")
 set(CPACK_RESOURCE_FILE_LICENSE "${CMAKE_CURRENT_SOURCE_DIR}/LICENSE")
