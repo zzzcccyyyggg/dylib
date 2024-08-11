@@ -231,12 +231,12 @@ public:
     }
 
     template<typename T>
-T *get_function_by_offset(const char *symbol_name) const {
+T *get_function_by_offset(std::ptrdiff_t offset) const {
 #if (defined(__GNUC__) && __GNUC__ >= 8)
 #pragma GCC diagnostic push
 #pragma GCC diagnostic ignored "-Wcast-function-type"
 #endif
-    return reinterpret_cast<T *>(get_symbol_by_offset(symbol_name));
+    return reinterpret_cast<T *>(get_symbol_by_offset(offset));
 #if (defined(__GNUC__) && __GNUC__ >= 8)
 #pragma GCC diagnostic pop
 #endif
