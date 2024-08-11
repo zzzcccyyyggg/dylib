@@ -16,7 +16,7 @@
 #include <vector>
 #include <stdexcept>
 #include <utility>
-
+#include <iostream>
 #if ((defined(_MSVC_LANG) && _MSVC_LANG >= 201703L) || __cplusplus >= 201703L)
 #define DYLIB_CPP17
 #include <filesystem>
@@ -157,7 +157,7 @@ public:
      */
     native_symbol_type get_symbol(const char *symbol_name) const;
     native_symbol_type get_symbol(const std::string &symbol_name) const;
-
+    native_symbol_type get_symbol_by_offset(std::ptrdiff_t offset) const;
     /**
      *  Check if a symbol exists in the currently loaded dynamic library.
      *  This method will return false if no dynamic library is currently loaded

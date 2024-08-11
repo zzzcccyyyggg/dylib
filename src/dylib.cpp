@@ -163,7 +163,36 @@ dylib::native_symbol_type dylib::get_symbol(const char *symbol_name) const {
 
     return symbol;
 }
+dylib::native_symbol_type dylib::get_symbol_by_offset(std::ptrdiff_t offset) const {
+    if (!m_handle)
+        throw std::logic_error("The dynamic library handle is null");
 
+    if (offset < 0)
+        throw std::invalid_argument("Offset cannot be negative");
+
+    // 计算符号地址
+    void* symbol = reinterpret_cast<void*>(reinterpret_cast<char*>(m_handle) + offset);
+
+    // 输出计算出的符号地址
+    std::cout << "Calculated symbol address: " << symbol << std::endl;
+
+    // // 验证符号是否有效
+    // std::vector<std::string> all_symbols = symbols();
+    // std::string matching_symbol;
+    // for (const auto& sym : all_symbols) {
+    //     void* sym_addr = locate_symbol(m_handle, sym.c_str());
+    //     if (sym_addr == symbol) {
+    //         matching_symbol = sym;
+    //         break;
+    //     }
+    // }
+
+    // if (matching_symbol.empty()) {
+    //     throw symbol_error("Could not find symbol at offset " + std::to_string(offset) + "\n" + get_error_description());
+    // }
+
+    return symbol;
+}
 dylib::native_symbol_type dylib::get_symbol(const std::string &symbol_name) const {
     return get_symbol(symbol_name.c_str());
 }
