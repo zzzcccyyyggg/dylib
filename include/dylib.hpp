@@ -207,17 +207,20 @@ public:
         if (offset < 0){
             throw std::invalid_argument("Offset cannot be negative");
         }
-        else{
-            std::cout << "offset is : " << offset << std::endl; 
+        void* symbol_addr = dlsym(m_handle, "JNI_OnLoad");
+        if (!symbol_addr) {
+            std::cerr << "Failed to locate symbol: " << dlerror() << std::endl;
+            dlclose(m_handle);
         }
         Dl_info dl_info;
-        void* base_address = dl_info.dli_fbase; // 返回基地址
+        dladdr(symbol_addr, &dl_info);
+        auto base_address = dl_info.dli_fbase; // 返回基地址
         std::cout << "Calculated base address: " << base_address << std::endl;
         // 计算符号地址
-        void* symbol_address = reinterpret_cast<void*>(reinterpret_cast<char*>(base_address) + offset);
+        void* calculated_symbol_address = reinterpret_cast<void*>(reinterpret_cast<char*>(base_address) + offset);
 
         // 输出计算出的符号地址
-        std::cout << "Calculated symbol address: " << symbol_address << std::endl;
+        std::cout << "Calculated symbol address: " << calculated_symbol_address << std::endl;
 
         // // 验证符号是否有效
         // std::vector<std::string> all_symbols = symbols();
@@ -234,7 +237,7 @@ public:
         //     throw symbol_error("Could not find symbol at offset " + std::to_string(offset) + "\n" + get_error_description());
         // }
 
-        return symbol_address;
+        return calculated_symbol_address;
     }
 
     template<typename T>
