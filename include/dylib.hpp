@@ -207,7 +207,7 @@ public:
             throw std::invalid_argument("Offset cannot be negative");
         Dl_info dl_info;
         void* base_address = dl_info.dli_fbase; // 返回基地址
-
+        std::cout << "Calculated base address: " << base_address << std::endl;
         // 计算符号地址
         void* symbol_address = reinterpret_cast<void*>(reinterpret_cast<char*>(base_address) + offset);
 
