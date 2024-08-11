@@ -205,12 +205,14 @@ public:
 
         if (offset < 0)
             throw std::invalid_argument("Offset cannot be negative");
+        Dl_info dl_info;
+        void* base_address = dl_info.dli_fbase; // 返回基地址
 
         // 计算符号地址
-        void* symbol = reinterpret_cast<void*>(reinterpret_cast<char*>(m_handle) + offset);
+        void* symbol_address = reinterpret_cast<void*>(reinterpret_cast<char*>(base_address) + offset);
 
         // 输出计算出的符号地址
-        std::cout << "Calculated symbol address: " << symbol << std::endl;
+        std::cout << "Calculated symbol address: " << symbol_address << std::endl;
 
         // // 验证符号是否有效
         // std::vector<std::string> all_symbols = symbols();
@@ -227,7 +229,7 @@ public:
         //     throw symbol_error("Could not find symbol at offset " + std::to_string(offset) + "\n" + get_error_description());
         // }
 
-        return symbol;
+        return symbol_address;
     }
 
     template<typename T>
